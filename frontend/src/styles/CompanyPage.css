@@ -1,0 +1,77 @@
+/* Center the whole page */
+.company-page {
+  display: flex;
+
+  justify-content: center;
+}
+
+/* Card styling */
+.company-card {
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Heading */
+.company-card h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Form elements */
+.company-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.company-card label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+.company-card input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.company-card input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 4px rgba(25, 118, 210, 0.3);
+}
+
+/* Button */
+.company-card button {
+  background: #1976d2;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.company-card button:hover {
+  background: #1565c0;
+}
+
+/* Loading text */
+.loading {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}

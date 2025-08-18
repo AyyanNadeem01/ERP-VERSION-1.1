@@ -1,0 +1,220 @@
+/* General container */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fdfdfd;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading */
+  .container h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #333;
+  }
+  
+  /* Form Section */
+  .form-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+  
+  .form-section input[type="text"],
+  .form-section input[type="number"],
+  .form-section button {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    color: black;
+  }
+  
+  .form-section input::placeholder {
+    color: #888;
+  }
+  
+  .form-section button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .form-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table th,
+  table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+  }
+  
+  table th {
+    background-color: #f0f0f0;
+  }
+  
+  table td input[type="number"] {
+    width: 80px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: black;
+  }
+  
+  table td input::placeholder {
+    color: #888;
+  }
+  
+  /* Adjust Balance Buttons */
+  .adjust-btn {
+    padding: 7px 10px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .adjust-btn.add {
+    background-color: #28a745;
+  }
+  
+  .adjust-btn.add:hover {
+    background-color: #218838;
+  }
+  
+  .adjust-btn.subtract {
+    background-color: #dc3545;
+  }
+  
+  .adjust-btn.subtract:hover {
+    background-color: #c82333;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 768px) {
+    .form-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    table th,
+    table td {
+      padding: 10px 5px;
+      font-size: 14px;
+    }
+  
+    table td input[type="number"] {
+      width: 60px;
+    }
+  
+    .adjust-btn {
+      padding: 5px 8px;
+      font-size: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .container h1 {
+      font-size: 24px;
+    }
+  
+    .form-section input[type="text"],
+    .form-section input[type="number"],
+    .form-section button {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+  
+    table th,
+    table td {
+      font-size: 12px;
+      padding: 8px 4px;
+    }
+  
+    table td input[type="number"] {
+      width: 50px;
+    }
+  
+    .adjust-btn {
+      padding: 4px 6px;
+      font-size: 12px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .subtract {
+      margin-left: 80px;
+    }
+  }
+  .addvbtn{
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  .form-section input[type="text"],
+.form-section input[type="number"] {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  color: black;
+}
+
+.form-section button:not(.addvbtn) {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+}/* Move the general button rules first */
+.form-section button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.form-section button:hover {
+  background-color: #0056b3;
+}
+
+/* Then put the specific .addvbtn rule after (this will override the general rule) */
+.addvbtn {
+  background-color: #28a745 !important;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.addvbtn:hover {
+  background-color: #218838 !important;
+}

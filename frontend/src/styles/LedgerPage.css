@@ -1,0 +1,268 @@
+.ledger-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .ledger-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .ledger-table th, .ledger-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .ledger-table th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .ledger-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .ledger-table td {
+    color: #555;
+  }
+  .filter-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-section label {
+    margin-right: 5px;
+  }
+  
+  .filter-button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .filter-button:hover {
+    background-color: #0056b3;
+  }
+  .filter-section select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  /* General Container Styling */
+.ledger-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Heading */
+  .ledger-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  /* Filter Section Styling */
+  .filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    justify-content: space-between;
+  }
+  
+  .filter-section > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 150px;
+  }
+  
+  .filter-section label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #444;
+  }
+  
+  .filter-section input,
+  .filter-section select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  
+  /* Buttons */
+  .filter-button,
+  .reset-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 0.95rem;
+  }
+  
+  .filter-button {
+    background-color: #4caf50;
+  }
+  
+  .filter-button:hover {
+    background-color: #45a045;
+  }
+  
+  .reset-button {
+    background-color: #f44336;
+  }
+  
+  .reset-button:hover {
+    background-color: #d8352b;
+  }
+  
+  /* Ledger Table */
+  .ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .ledger-table th,
+  .ledger-table td {
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .ledger-table th {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .ledger-table td {
+    color: #444;
+  }
+  
+  .ledger-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  /* Responsive Styling */
+  @media screen and (max-width: 768px) {
+    .filter-section {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .filter-section > div {
+      flex: 1 1 auto;
+    }
+  
+    .filter-button,
+    .reset-button {
+      width: 100%;
+    }
+  
+    .ledger-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+  /* Responsive adjustments */
+@media (max-width: 768px) {
+    .filter-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .filter-section > div,
+    .filter-button, .reset-button {
+      width: 100%;
+    }
+  
+    .filter-button, .reset-button {
+      margin-top: 10px;
+    }
+  
+    .ledger-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .ledger-table thead {
+      display: table;
+      width: 100%;
+    }
+  
+    .ledger-table tbody {
+      display: table;
+      width: 100%;
+    }
+  
+    .ledger-table th, .ledger-table td {
+      white-space: nowrap;
+    }
+  }
+  
+  /* Responsive Table */
+@media (max-width: 768px) {
+    .ledger-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .ledger-table thead {
+      display: none;
+    }
+  
+    .ledger-table tr {
+      display: block;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #ddd;
+    }
+  
+    .ledger-table td {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+  
+    .ledger-table td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      color: #333;
+    }
+  }
+  .totals-section {
+    margin: 20px 0;
+    font-size: 1.1rem;
+    display: flex;
+    gap: 30px;
+  }
+  

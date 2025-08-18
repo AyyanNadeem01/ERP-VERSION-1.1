@@ -1,0 +1,70 @@
+
+   body {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.dashboard-container {
+  padding: 50px 20px;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.welcome-message {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  background: linear-gradient(145deg, #4facfe, #00f2fe);
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.nav-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+  background: linear-gradient(145deg, #43e97b, #38f9d7);
+}
+
+.nav-card h2 {
+  margin: 0;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.logout-button {
+  background: linear-gradient(145deg, #ff416c, #ff4b2b);
+  border: none;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: linear-gradient(145deg, #ff6a88, #ff99ac);
+}
+
+.welcome-message{
+  color:white;
+}

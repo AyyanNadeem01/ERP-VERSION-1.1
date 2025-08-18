@@ -1,0 +1,215 @@
+/* .add-item-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  h1, h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .add-item-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .add-item-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    color: #333;
+  }
+  
+  .add-item-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-item-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .item-list li {
+    background: white;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-btn:hover {
+    background-color: #a71d2a;
+  }
+   */.add-item-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff; /* Changed from #fafafa for better contrast */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.add-item-form {
+  display: flex;
+  flex-wrap: wrap; /* This is the key change for wrapping */
+  justify-content: center;
+  gap: 15px; /* Adjust gap as needed */
+  margin-bottom: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  /* Distribute space to create a responsive, multi-column layout */
+  flex: 1 1 180px; /* `flex-grow` `flex-shrink` `flex-basis` */
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.add-item-form input[type="text"],
+.add-item-form input[type="number"] {
+  /* No more `flex: 1` here, as it's now handled by `.form-group` */
+  width: 100%; /* Ensure the input fills the `form-group` container */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  color: #333;
+}
+
+.add-item-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* For better alignment with the inputs */
+  align-self: flex-end; 
+}
+
+.add-item-form button:hover {
+  background-color: #0056b3;
+}
+
+/* New responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+  .add-item-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-group {
+    flex-basis: auto; /* Revert to default behavior */
+  }
+
+  .add-item-form button {
+    align-self: stretch; /* Make button full width on small screens */
+  }
+}
+
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.item-table th,
+.item-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.item-table th {
+  background-color: #f2f2f2;
+  color: #555;
+  font-weight: bold;
+}
+
+.item-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.item-table td input[type="number"] {
+  width: 80px; /* Adjust as needed */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.update-btn,
+.delete-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.update-btn {
+  background-color: #28a745;
+}
+
+.update-btn:hover {
+  background-color: #218838;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
