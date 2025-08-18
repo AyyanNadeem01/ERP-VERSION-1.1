@@ -30,4 +30,3 @@ const companyService = {
 export default companyService;
 
 
-src/services/companyService.js
