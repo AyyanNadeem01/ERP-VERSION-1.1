@@ -1,3 +1,5 @@
+
+// export default SaleDetailPage;
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSaleById } from "../services/salesService";
@@ -54,15 +56,32 @@ function SaleDetailPage() {
   };
 
   // Screenshot Capture
-  const handleScreenshot = async () => {
-    if (invoiceRef.current) {
-      const canvas = await html2canvas(invoiceRef.current, { scale: 3 });
-      const link = document.createElement("a");
-      link.download = `invoice_${sale.invoiceNumber}.png`;
-      link.href = canvas.toDataURL("image/png", 1.0);
-      link.click();
-    }
-  };
+// Screenshot Capture (force desktop size)
+const handleScreenshot = async () => {
+  if (invoiceRef.current) {
+    const element = invoiceRef.current;
+
+    // Force desktop width (same as your CSS max-width)
+    const width = 900;  // 👈 same as .sale-detail-container max-width
+    const scale = 3;    // Higher = sharper image
+
+    const canvas = await html2canvas(element, {
+      scale,
+      useCORS: true,
+      scrollX: 0,
+      scrollY: 0,
+      width,                  // force width
+      height: element.scrollHeight, // auto height
+      windowWidth: width,     // pretend viewport width is desktop
+    });
+
+    const link = document.createElement("a");
+    link.download = `invoice_${sale.invoiceNumber}.png`;
+    link.href = canvas.toDataURL("image/png", 1.0);
+    link.click();
+  }
+};
+
 
   return (
     <>
@@ -121,7 +140,7 @@ function SaleDetailPage() {
               <th>Total (Rs.)</th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
             {sale.items.map((item, index) => (
               <tr key={index}>
                 <td>{item.srNo || index + 1}</td>
@@ -140,7 +159,31 @@ function SaleDetailPage() {
                 <td></td>
               </tr>
             ))}
-          </tbody>
+          </tbody> */}
+          <tbody>
+  {sale.items.map((item, index) => (
+    <tr key={index}>
+      <td>{item.srNo || index + 1}</td>
+      <td className="description-col">{item.description}</td>
+      <td className="right-align">{item.rate.toFixed(2)}</td>
+      <td className="right-align">{item.quantity}</td>
+      <td className="right-align">{item.total.toFixed(2)}</td>
+    </tr>
+  ))}
+
+  {/* Add empty rows only if items < 3 */}
+  {sale.items.length < 3 &&
+    Array.from({ length: 3 - sale.items.length }).map((_, idx) => (
+      <tr key={`empty-${idx}`}>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    ))}
+</tbody>
+
         </table>
 
         {/* Totals */}
