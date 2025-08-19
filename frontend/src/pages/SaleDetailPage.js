@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSaleById } from "../services/salesService";
 import { CompanyContext } from "../context/CompanyContext";
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";   // 👈 Added
 import "../styles/saleDetail.css";
 
 function SaleDetailPage() {
@@ -36,18 +37,30 @@ function SaleDetailPage() {
   const clientPrevBalance = sale.client?.balance - sale.totalAmount;
   const netClientBalance = sale.client?.balance;
   const emptyRowsCount = 4;
-  
+
+  // PDF Download
   const handleDownloadPdf = () => {
     const element = invoiceRef.current;
     if (element) {
       const opt = {
         margin: [-5, -5, -5, -5],
         filename: `invoice_${sale.invoiceNumber}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        image: { type: "jpeg", quality: 1 }, // higher quality
+        html2canvas: { scale: 3 }, // sharper
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       };
       html2pdf().set(opt).from(element).save();
+    }
+  };
+
+  // Screenshot Capture
+  const handleScreenshot = async () => {
+    if (invoiceRef.current) {
+      const canvas = await html2canvas(invoiceRef.current, { scale: 3 });
+      const link = document.createElement("a");
+      link.download = `invoice_${sale.invoiceNumber}.png`;
+      link.href = canvas.toDataURL("image/png", 1.0);
+      link.click();
     }
   };
 
@@ -60,9 +73,12 @@ function SaleDetailPage() {
         <button className="download-btn" onClick={handleDownloadPdf}>
           Download PDF
         </button>
+        <button className="screenshot-btn" onClick={handleScreenshot}>
+          Take Screenshot
+        </button>
       </div>
 
-      <div className="sale-detail-container" ref={invoiceRef}>
+      <div className="sale-detail-container invoice-dark" ref={invoiceRef}>
         {/* Header Section */}
         <div className="invoice-header">
           <div className="company-info">
@@ -85,7 +101,7 @@ function SaleDetailPage() {
           </div>
         </div>
 
-        {/* Bill To / Client Section */}
+        {/* Client Info */}
         <div className="client-info">
           <h4>Bill To:</h4>
           <p>
@@ -127,7 +143,7 @@ function SaleDetailPage() {
           </tbody>
         </table>
 
-        {/* New Div for Totals Section */}
+        {/* Totals */}
         <div className="invoice-totals-section">
           <div className="totals-card">
             <div className="totals-line">
@@ -145,7 +161,7 @@ function SaleDetailPage() {
           </div>
         </div>
 
-        {/* Footer / Signature */}
+        {/* Footer */}
         <div className="invoice-footer">
           <div className="authorized-signature">
             <p>Receiving Person Signature</p>
