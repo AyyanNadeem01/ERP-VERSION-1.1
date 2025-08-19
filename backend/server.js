@@ -15,10 +15,12 @@ const app = express();
 
 const cors = require('cors');
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: process.env.FRONTEND_URL || "https://erp-version-1-1-frontend.onrender.com", // fallback
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-  exposedHeaders: ["Authorization"]
 }));
+
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
