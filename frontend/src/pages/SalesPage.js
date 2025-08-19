@@ -1,232 +1,383 @@
-import React, { useEffect, useState } from "react"; 
-import { getAllSales, deleteSale } from "../services/salesService";
-import axiosInstance from "../services/axiosInstance"; // For updateCost API
-import "../styles/sales.css";
+// import React, { useEffect, useState, useContext, useRef } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import { getSaleById } from "../services/salesService";
+// import { CompanyContext } from "../context/CompanyContext";
+// import html2pdf from 'html2pdf.js';
+// import "../styles/saleDetail.css";
 
-// Utility to get today's date string in 'YYYY-MM-DD' format for Pakistan timezone (UTC+5)
-function getPakistanTodayDateString() {
-  const now = new Date();
-  const pakTime = new Date(now.getTime() + 5 * 60 * 60 * 1000);
-  return pakTime.toISOString().slice(0, 10);
-}
+// function SaleDetailPage() {
+//   const { id } = useParams();
+//   const navigate = useNavigate();
+//   const [sale, setSale] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
 
-function SalesPage() {
-  const [sales, setSales] = useState([]);
-  const [filteredSales, setFilteredSales] = useState([]);
-  const [clients, setClients] = useState([]);
+//   const { company, loading: companyLoading } = useContext(CompanyContext);
 
-  const todayPakistan = getPakistanTodayDateString();
+//   const invoiceRef = useRef(null);
 
-  const [filterDateFrom, setFilterDateFrom] = useState(todayPakistan);
-  const [filterDateTo, setFilterDateTo] = useState(todayPakistan);
-  const [filterClient, setFilterClient] = useState("");
+//   useEffect(() => {
+//     getSaleById(id)
+//       .then((res) => {
+//         setSale(res.data);
+//         setLoading(false);
+//       })
+//       .catch(() => {
+//         setError("Failed to load sale details");
+//         setLoading(false);
+//       });
+//   }, [id]);
+
+//   if (loading || companyLoading)
+//     return <div className="loading">Loading...</div>;
+//   if (error) return <div className="error">{error}</div>;
+//   if (!sale) return <div className="error">Sale not found</div>;
+
+//   const clientPrevBalance = sale.client?.balance - sale.totalAmount;
+//   const netClientBalance = sale.client?.balance;
+//   const emptyRowsCount = 4;
+  
+//   const handleDownloadPdf = () => {
+//     const element = invoiceRef.current;
+//     if (element) {
+//       const opt = {
+//         margin: [-5, -5, -5, -5],
+//         filename: `invoice_${sale.invoiceNumber}.pdf`,
+//         image: { type: 'jpeg', quality: 0.98 },
+//         html2canvas: { scale: 2 },
+//         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+//       };
+//       html2pdf().set(opt).from(element).save();
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div className="back-btn-container">
+//         <button className="back-btn" onClick={() => navigate(-1)}>
+//           ← Back to Sales
+//         </button>
+//         <button className="download-btn" onClick={handleDownloadPdf}>
+//           Download PDF
+//         </button>
+//       </div>
+
+//       <div className="sale-detail-container" ref={invoiceRef}>
+//         {/* Header Section */}
+//         <div className="invoice-header">
+//           <div className="company-info">
+//             <div className="company-details">
+//               <h2>{company?.name || "Your Company Name"}</h2>
+//               <p>{company?.tagline || "Your Company Tagline"}</p>
+//               <p>{company?.address || "Your Company Address"}</p>
+//             </div>
+//           </div>
+
+//           <div className="invoice-meta">
+//             <h3>INVOICE</h3>
+//             <p>
+//               <strong>Invoice #:</strong> {sale.invoiceNumber}
+//             </p>
+//             <p>
+//               <strong>Date:</strong>{" "}
+//               {new Date(sale.date).toLocaleDateString("en-GB")}
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Bill To / Client Section */}
+//         <div className="client-info">
+//           <h4>Bill To:</h4>
+//           <p>
+//             <strong>{sale.client?.name || "N/A"}</strong>
+//           </p>
+//           <p>{sale.client?.address || "Address not available"}</p>
+//         </div>
+
+//         {/* Items Table */}
+//         <table className="items-table">
+//           <thead>
+//             <tr>
+//               <th>Sr No.</th>
+//               <th>Description</th>
+//               <th>Rate (Rs.)</th>
+//               <th>Quantity</th>
+//               <th>Total (Rs.)</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {sale.items.map((item, index) => (
+//               <tr key={index}>
+//                 <td>{item.srNo || index + 1}</td>
+//                 <td className="description-col">{item.description}</td>
+//                 <td className="right-align">{item.rate.toFixed(2)}</td>
+//                 <td className="right-align">{item.quantity}</td>
+//                 <td className="right-align">{item.total.toFixed(2)}</td>
+//               </tr>
+//             ))}
+//             {Array.from({ length: emptyRowsCount }).map((_, idx) => (
+//               <tr key={`empty-${idx}`}>
+//                 <td>&nbsp;</td>
+//                 <td></td>
+//                 <td></td>
+//                 <td></td>
+//                 <td></td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+
+//         {/* New Div for Totals Section */}
+//         <div className="invoice-totals-section">
+//           <div className="totals-card">
+//             <div className="totals-line">
+//               <span>Subtotal:</span>
+//               <span>Rs. {sale.totalAmount.toFixed(2)}</span>
+//             </div>
+//             <div className="totals-line">
+//               <span>Previous Balance:</span>
+//               <span>Rs. {clientPrevBalance.toFixed(2)}</span>
+//             </div>
+//             <div className="totals-line net-balance">
+//               <span>Net Balance:</span>
+//               <span>Rs. {netClientBalance.toFixed(2)}</span>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Footer / Signature */}
+//         <div className="invoice-footer">
+//           <div className="authorized-signature">
+//             <p>Receiving Person Signature</p>
+//             <div className="signature-line" />
+//           </div>
+//           <div className="thank-you">
+//             <p>Thank you for your business!</p>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default SaleDetailPage;
+import React, { useEffect, useState, useContext, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getSaleById } from "../services/salesService";
+import { CompanyContext } from "../context/CompanyContext";
+import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";   // 👈 Added
+import "../styles/saleDetail.css";
+
+function SaleDetailPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [sale, setSale] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const { company, loading: companyLoading } = useContext(CompanyContext);
+
+  const invoiceRef = useRef(null);
 
   useEffect(() => {
-    fetchSales();
-  }, []);
-
-  const fetchSales = () => {
-    getAllSales()
-      .then((response) => {
-        setSales(response.data);
-        setFilteredSales(response.data);
-
-        const uniqueClients = Array.from(
-          new Set(response.data.map((sale) => sale.client?.name).filter(Boolean))
-        );
-        setClients(uniqueClients);
+    getSaleById(id)
+      .then((res) => {
+        setSale(res.data);
+        setLoading(false);
       })
-      .catch((error) => console.error("Error fetching sales:", error));
-  };
-
-  useEffect(() => {
-    let filtered = sales;
-
-    if (filterDateFrom) {
-      const fromDate = new Date(filterDateFrom);
-      fromDate.setHours(0, 0, 0, 0);
-      filtered = filtered.filter((sale) => {
-        const saleDate = new Date(sale.date);
-        saleDate.setHours(0, 0, 0, 0);
-        return saleDate >= fromDate;
+      .catch(() => {
+        setError("Failed to load sale details");
+        setLoading(false);
       });
-    }
+  }, [id]);
 
-    if (filterDateTo) {
-      const toDate = new Date(filterDateTo);
-      toDate.setHours(23, 59, 59, 999);
-      filtered = filtered.filter((sale) => {
-        const saleDate = new Date(sale.date);
-        saleDate.setHours(0, 0, 0, 0);
-        return saleDate <= toDate;
-      });
-    }
+  if (loading || companyLoading)
+    return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
+  if (!sale) return <div className="error">Sale not found</div>;
 
-    if (filterClient) {
-      filtered = filtered.filter((sale) => sale.client?.name === filterClient);
-    }
+  const clientPrevBalance = sale.client?.balance - sale.totalAmount;
+  const netClientBalance = sale.client?.balance;
+  const emptyRowsCount = 4;
 
-    setFilteredSales(filtered);
-  }, [filterDateFrom, filterDateTo, filterClient, sales]);
-
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this sale?")) {
-      deleteSale(id)
-        .then(() => {
-          alert("Sale deleted successfully.");
-          fetchSales();
-        })
-        .catch((error) => console.error("Error deleting sale:", error));
+  // PDF Download
+  const handleDownloadPdf = () => {
+    const element = invoiceRef.current;
+    if (element) {
+      const opt = {
+        margin: [-5, -5, -5, -5],
+        filename: `invoice_${sale.invoiceNumber}.pdf`,
+        image: { type: "jpeg", quality: 1 }, // higher quality
+        html2canvas: { scale: 3 }, // sharper
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      };
+      html2pdf().set(opt).from(element).save();
     }
   };
 
-  const handleUpdateCost = async (saleId, currentCost) => {
-    const newCostStr = window.prompt("Enter new cost:", currentCost || 0);
-    if (newCostStr === null) return; // Cancelled
-    const newCost = parseFloat(newCostStr);
-    if (isNaN(newCost) || newCost < 0) {
-      alert("Invalid cost entered!");
-      return;
-    }
+  // Screenshot Capture
+// Screenshot Capture (force desktop size)
+const handleScreenshot = async () => {
+  if (invoiceRef.current) {
+    const element = invoiceRef.current;
 
-    try {
-      await axiosInstance.put(`/sales/updatecost/${saleId}`, { cost: newCost });
-      alert("Cost updated successfully.");
-      fetchSales();
-    } catch (error) {
-      console.error("Error updating cost:", error);
-      alert("Failed to update cost.");
-    }
-  };
+    // Force desktop width (same as your CSS max-width)
+    const width = 900;  // 👈 same as .sale-detail-container max-width
+    const scale = 3;    // Higher = sharper image
 
-  const totalOutstanding = filteredSales.reduce(
-    (sum, sale) => sum + (sale.totalAmount || 0),
-    0
-  );
+    const canvas = await html2canvas(element, {
+      scale,
+      useCORS: true,
+      scrollX: 0,
+      scrollY: 0,
+      width,                  // force width
+      height: element.scrollHeight, // auto height
+      windowWidth: width,     // pretend viewport width is desktop
+    });
 
-  const totalProfit = filteredSales.reduce(
-    (sum, sale) => sum + (sale.profit || 0),
-    0
-  );
+    const link = document.createElement("a");
+    link.download = `invoice_${sale.invoiceNumber}.png`;
+    link.href = canvas.toDataURL("image/png", 1.0);
+    link.click();
+  }
+};
+
 
   return (
-    <div className="sales-container">
-      <h2>Sales Records</h2>
-
-      {/* Filters */}
-      <div className="filters-container">
-        <div className="filter-group">
-          <label htmlFor="date-from">From Date:</label>
-          <input
-            type="date"
-            id="date-from"
-            value={filterDateFrom}
-            onChange={(e) => setFilterDateFrom(e.target.value)}
-            max={todayPakistan}
-          />
-        </div>
-
-        <div className="filter-group">
-          <label htmlFor="date-to">To Date:</label>
-          <input
-            type="date"
-            id="date-to"
-            value={filterDateTo}
-            onChange={(e) => setFilterDateTo(e.target.value)}
-            max={todayPakistan}
-            min={filterDateFrom}
-          />
-        </div>
-
-        <div className="filter-group">
-          <label htmlFor="client-filter">Client:</label>
-          <select
-            id="client-filter"
-            value={filterClient}
-            onChange={(e) => setFilterClient(e.target.value)}
-          >
-            <option value="">All Clients</option>
-            {clients.map((clientName) => (
-              <option key={clientName} value={clientName}>
-                {clientName}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Top Bar */}
-      <div className="top-bar">
-        <button className="add-btn" onClick={() => (window.location.href = "/addsale")}>
-          + Add New Sale
+    <>
+      <div className="back-btn-container">
+        <button className="back-btn" onClick={() => navigate(-1)}>
+          ← Back to Sales
         </button>
-        <span className="total-count">
-          {filteredSales.length} {filteredSales.length === 1 ? "sale" : "sales"}
-        </span>
-        <span className="total-outstanding">| Total Sales: Rs.{totalOutstanding.toFixed(2)}</span>
-        <span className="total-profit">| Total Profit: Rs.{totalProfit.toFixed(2)}</span>
+        <button className="download-btn" onClick={handleDownloadPdf}>
+          Download PDF
+        </button>
+        <button className="screenshot-btn" onClick={handleScreenshot}>
+          Take Screenshot
+        </button>
       </div>
 
-      {/* Sales Table */}
-      <div className="table-wrapper">
-        <table className="sales-table">
+      <div className="sale-detail-container invoice-dark" ref={invoiceRef}>
+        {/* Header Section */}
+        <div className="invoice-header">
+          <div className="company-info">
+            <div className="company-details">
+              <h2>{company?.name || "Your Company Name"}</h2>
+              <p>{company?.tagline || "Your Company Tagline"}</p>
+              <p>{company?.address || "Your Company Address"}</p>
+            </div>
+          </div>
+
+          <div className="invoice-meta">
+            <h3>INVOICE</h3>
+            <p>
+              <strong>Invoice #:</strong> {sale.invoiceNumber}
+            </p>
+            <p>
+              <strong>Date:</strong>{" "}
+              {new Date(sale.date).toLocaleDateString("en-GB")}
+            </p>
+          </div>
+        </div>
+
+        {/* Client Info */}
+        <div className="client-info">
+          <h4>Bill To:</h4>
+          <p>
+            <strong>{sale.client?.name || "N/A"}</strong>
+          </p>
+          <p>{sale.client?.address || "Address not available"}</p>
+        </div>
+
+        {/* Items Table */}
+        <table className="items-table">
           <thead>
             <tr>
-              <th>Invoice #</th>
-              <th>Date</th>
-              <th>Client</th>
-              <th>Address</th>
-              <th>Total Amount</th>
-              <th>Profit</th>
-              <th>Actions</th>
+              <th>Sr No.</th>
+              <th>Description</th>
+              <th>Rate (Rs.)</th>
+              <th>Quantity</th>
+              <th>Total (Rs.)</th>
             </tr>
           </thead>
-          <tbody>
-            {filteredSales.length === 0 ? (
-              <tr>
-                <td colSpan="7" className="no-data">
-                  No sales found.
-                </td>
+          {/* <tbody>
+            {sale.items.map((item, index) => (
+              <tr key={index}>
+                <td>{item.srNo || index + 1}</td>
+                <td className="description-col">{item.description}</td>
+                <td className="right-align">{item.rate.toFixed(2)}</td>
+                <td className="right-align">{item.quantity}</td>
+                <td className="right-align">{item.total.toFixed(2)}</td>
               </tr>
-            ) : (
-              filteredSales.map((sale) => (
-                <tr key={sale._id}>
-                  <td data-label="Invoice #">{sale.invoiceNumber}</td>
-                  <td data-label="Date">{new Date(sale.date).toLocaleDateString()}</td>
-                  <td data-label="Client">{sale.client?.name || "-"}</td>
-                  <td data-label="Address">{sale.client?.address || "-"}</td>
-                  <td data-label="Total Amount">Rs.{sale.totalAmount?.toFixed(2) || "0.00"}</td>
-                  <td
-                    data-label="Profit"
-                    className={sale.profit >= 0 ? "profit-positive" : "profit-negative"}
-                  >
-                    Rs.{sale.profit?.toFixed(2) || "0.00"}
-                  </td>
-                  <td>
-                    <button
-                      className="view-btn"
-                      onClick={() => (window.location.href = `/sales/${sale._id}`)}
-                    >
-                      Go to Invoice
-                    </button>
-                    <button
-                      className="update-btn"
-                      onClick={() => handleUpdateCost(sale._id, sale.cost)}
-                    >
-                      Update Cost
-                    </button>
-                    <button className="delete-btn" onClick={() => handleDelete(sale._id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
+            ))}
+            {Array.from({ length: emptyRowsCount }).map((_, idx) => (
+              <tr key={`empty-${idx}`}>
+                <td>&nbsp;</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            ))}
+          </tbody> */}
+          <tbody>
+  {sale.items.map((item, index) => (
+    <tr key={index}>
+      <td>{item.srNo || index + 1}</td>
+      <td className="description-col">{item.description}</td>
+      <td className="right-align">{item.rate.toFixed(2)}</td>
+      <td className="right-align">{item.quantity}</td>
+      <td className="right-align">{item.total.toFixed(2)}</td>
+    </tr>
+  ))}
+
+  {/* Add empty rows only if items < 3 */}
+  {sale.items.length < 3 &&
+    Array.from({ length: 3 - sale.items.length }).map((_, idx) => (
+      <tr key={`empty-${idx}`}>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    ))}
+</tbody>
+
         </table>
+
+        {/* Totals */}
+        <div className="invoice-totals-section">
+          <div className="totals-card">
+            <div className="totals-line">
+              <span>Subtotal:</span>
+              <span>Rs. {sale.totalAmount.toFixed(2)}</span>
+            </div>
+            <div className="totals-line">
+              <span>Previous Balance:</span>
+              <span>Rs. {clientPrevBalance.toFixed(2)}</span>
+            </div>
+            <div className="totals-line net-balance">
+              <span>Net Balance:</span>
+              <span>Rs. {netClientBalance.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="invoice-footer">
+          <div className="authorized-signature">
+            <p>Receiving Person Signature</p>
+            <div className="signature-line" />
+          </div>
+          <div className="thank-you">
+            <p>Thank you for your business!</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default SalesPage;
+export default SaleDetailPage;
