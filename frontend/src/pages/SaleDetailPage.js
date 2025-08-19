@@ -129,62 +129,40 @@ const handleScreenshot = async () => {
           <p>{sale.client?.address || "Address not available"}</p>
         </div>
 
-        {/* Items Table */}
-        <table className="items-table">
-          <thead>
-            <tr>
-              <th>Sr No.</th>
-              <th>Description</th>
-              <th>Rate (Rs.)</th>
-              <th>Quantity</th>
-              <th>Total (Rs.)</th>
-            </tr>
-          </thead>
-          {/* <tbody>
-            {sale.items.map((item, index) => (
-              <tr key={index}>
-                <td>{item.srNo || index + 1}</td>
-                <td className="description-col">{item.description}</td>
-                <td className="right-align">{item.rate.toFixed(2)}</td>
-                <td className="right-align">{item.quantity}</td>
-                <td className="right-align">{item.total.toFixed(2)}</td>
-              </tr>
-            ))}
-            {Array.from({ length: emptyRowsCount }).map((_, idx) => (
-              <tr key={`empty-${idx}`}>
-                <td>&nbsp;</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            ))}
-          </tbody> */}
-          <tbody>
-  {sale.items.map((item, index) => (
-    <tr key={index}>
-      <td>{item.srNo || index + 1}</td>
-      <td className="description-col">{item.description}</td>
-      <td className="right-align">{item.rate.toFixed(2)}</td>
-      <td className="right-align">{item.quantity}</td>
-      <td className="right-align">{item.total.toFixed(2)}</td>
+        {/* Items Table */}<table className="items-table">
+  <thead>
+    <tr>
+      <th>Sr No.</th>
+      <th>Description</th>
+      <th>Quantity</th>   {/* 👈 Quantity first */}
+      <th>Rate (Rs.)</th> {/* 👈 Rate after */}
+      <th>Total (Rs.)</th>
     </tr>
-  ))}
-
-  {/* Add empty rows only if items < 3 */}
-  {sale.items.length < 3 &&
-    Array.from({ length: 3 - sale.items.length }).map((_, idx) => (
-      <tr key={`empty-${idx}`}>
-        <td>&nbsp;</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+  </thead>
+  <tbody>
+    {sale.items.map((item, index) => (
+      <tr key={index}>
+        <td>{item.srNo || index + 1}</td>
+        <td className="description-col">{item.description}</td>
+        <td className="right-align">{item.quantity}</td>     {/* 👈 Quantity first */}
+        <td className="right-align">{item.rate.toFixed(2)}</td> {/* 👈 Rate after */}
+        <td className="right-align">{item.total.toFixed(2)}</td>
       </tr>
     ))}
-</tbody>
 
-        </table>
+    {/* Add empty rows if less than 3 items */}
+    {sale.items.length < 3 &&
+      Array.from({ length: 3 - sale.items.length }).map((_, idx) => (
+        <tr key={`empty-${idx}`}>
+          <td>&nbsp;</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      ))}
+  </tbody>
+</table>
 
         {/* Totals */}
         <div className="invoice-totals-section">
