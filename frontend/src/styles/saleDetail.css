@@ -423,3 +423,226 @@ Container for the page content, minus the back button
 .error {
   color: #d9534f;
 }
+/* Darker invoice for printing */
+.invoice-dark {
+  color: #000 !important;
+}
+
+.invoice-dark .items-table th {
+  background-color: #e0e0e0 !important;
+  color: #000 !important;
+}
+
+.invoice-dark .items-table td {
+  color: #111 !important;
+}
+
+.invoice-dark .client-info {
+  background: #f0f0f0 !important;
+  border-left: 4px solid #0056b3 !important;
+}
+
+.invoice-dark .totals-card {
+  background: #f0f0f0 !important;
+  border: 1px solid #444 !important;
+}
+
+/* Screenshot Button */
+.screenshot-btn {
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+  margin-left: 10px;
+}
+.screenshot-btn:hover {
+  background-color: #5a6268;
+}
+/* Make all text darker and slightly bigger */
+.sale-detail-container,
+.sale-detail-container * {
+  color: #000 !important; /* Darkest text */
+  font-size: 1.05rem; /* Increase globally ~5% */
+  line-height: 1.5;
+}
+
+/* Headings bigger & darker */
+.company-details h2 {
+  font-size: 1.8rem !important;
+  font-weight: bold;
+  color: #000 !important;
+}
+
+.invoice-meta h3 {
+  font-size: 1.6rem !important;
+  font-weight: bold;
+  color: #000 !important;
+}
+
+.client-info h4 {
+  font-size: 1.2rem !important;
+  font-weight: bold;
+  color: #003366 !important; /* darker blue */
+}
+
+/* Table Styling */
+.items-table th,
+.items-table td {
+  border: 2px solid #000 !important; /* Darker, thicker borders */
+  font-size: 1.05rem !important;
+  padding: 10px 12px;
+}
+
+.items-table th {
+  background-color: #dcdcdc !important; /* Darker gray */
+  color: #000 !important;
+  font-weight: 700;
+}
+
+/* Totals section */
+.totals-card {
+  background: #f0f0f0 !important;
+  border: 2px solid #000 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600;
+}
+
+.net-balance {
+  font-weight: bold;
+  border-top: 2px solid #000 !important;
+  padding-top: 10px;
+  font-size: 1.15rem !important;
+}
+
+/* Signature line darker */
+.signature-line {
+  border-top: 2px solid #000 !important;
+  width: 200px;
+}
+
+/* Footer text */
+.thank-you {
+  font-size: 1.05rem !important;
+  font-style: italic;
+  color: #111 !important;
+}
+/* Make all text darker and bigger */
+.sale-detail-container,
+.sale-detail-container * {
+  color: #000 !important; /* darkest text */
+  font-size: 1.2rem !important;  /* Increased globally */
+  line-height: 1.6;
+}
+
+/* Headings */
+.company-details h2 {
+  font-size: 2rem !important;
+  font-weight: bold;
+  color: #000 !important;
+}
+
+.invoice-meta h3 {
+  font-size: 1.8rem !important;
+  font-weight: bold;
+  color: #000 !important;
+}
+
+.client-info h4 {
+  font-size: 1.4rem !important;
+  font-weight: bold;
+  color: #003366 !important;
+}
+
+/* Table Styling */
+.items-table th,
+.items-table td {
+  border: 2px solid #000 !important;
+  font-size: 1.2rem !important;   /* Bigger table text */
+  padding: 12px 14px;
+}
+
+.items-table th {
+  background-color: #d0d0d0 !important;
+  color: #000 !important;
+  font-weight: 700;
+}
+
+/* Totals section */
+.totals-card {
+  background: #f0f0f0 !important;
+  border: 2px solid #000 !important;
+  font-size: 1.3rem !important;   /* Bigger text inside totals */
+  font-weight: 600;
+  padding: 18px 22px;
+}
+
+.totals-line {
+  margin: 10px 0;
+}
+
+/* Make Subtotal / Previous Balance / Net Balance standout */
+.totals-line span {
+  font-size: 1.4rem !important;
+}
+
+.net-balance {
+  font-weight: bold;
+  border-top: 3px solid #000 !important;
+  padding-top: 12px;
+  font-size: 1.5rem !important;
+  color: #000 !important;
+}
+
+/* Signature line */
+.signature-line {
+  border-top: 2px solid #000 !important;
+  width: 220px;
+}
+
+/* Footer */
+.thank-you {
+  font-size: 1.2rem !important;
+  font-style: italic;
+  color: #111 !important;
+}
+/* Totals section */
+.totals-card {
+  background: #f0f0f0 !important;
+  border: 2px solid #000 !important;
+  font-size: 1.3rem !important;
+  font-weight: 600;
+  padding: 18px 22px;
+  max-width: 400px !important;   /* Increased width */
+  width: 100%;                   /* Allow it to stretch */
+  min-width: 320px;              /* Ensure it's not too small */
+}
+
+.totals-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.totals-line span {
+  font-size: 1.4rem !important;
+  flex: 1;                       /* Distribute evenly */
+}
+
+.totals-line span:first-child {
+  text-align: left;
+}
+
+.totals-line span:last-child {
+  text-align: right;
+}
+
+.net-balance {
+  font-weight: bold;
+  border-top: 3px solid #000 !important;
+  padding-top: 14px;
+  font-size: 1.5rem !important;
+}
