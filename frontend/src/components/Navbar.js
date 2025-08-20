@@ -45,8 +45,8 @@ const Navbar = () => {
     { href: "/addclient", label: "Add Client" },
     { href: "/Sales", label: "Sales" },
     { href: "/vendors", label: "Manage Vendors" },
-     { href: "/company", label: "Customize Company" },
-    
+    { href: "/company", label: "Customize Company" },
+    { href: "/getCollections", label: "Collections" },
   ];
 
   return (
