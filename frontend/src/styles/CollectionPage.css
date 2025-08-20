@@ -1,77 +1,89 @@
-/* Center the whole page */
-.company-page {
-  display: flex;
-
-  justify-content: center;
-}
-
-/* Card styling */
-.company-card {
-  background: #fff;
-  padding: 30px;
-  width: 100%;
-  max-width: 400px;
+.collection-container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+  background: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* Heading */
-.company-card h2 {
+.collection-heading {
+  text-align: center;
   margin-bottom: 20px;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 28px;
   color: #333;
 }
 
-/* Form elements */
-.company-card form {
+.collection-filter-section {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 15px;
-  text-align: left;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-.company-card label {
-  font-size: 14px;
+.collection-filter-section label {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.filter-button, .reset-button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.filter-button {
+  background: #4caf50;
+  color: #fff;
+}
+
+.reset-button {
+  background: #f44336;
+  color: #fff;
+}
+
+.filter-button:hover {
+  background: #45a049;
+}
+
+.reset-button:hover {
+  background: #d32f2f;
+}
+
+.collection-totals {
+  margin-bottom: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #444;
 }
 
-.company-card input {
-  padding: 10px 12px;
-  border: 1px solid #ccc;
+.collection-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
   border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.2s;
+  overflow: hidden;
 }
 
-.company-card input:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 4px rgba(25, 118, 210, 0.3);
-}
-
-/* Button */
-.company-card button {
-  background: #1976d2;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.company-card button:hover {
-  background: #1565c0;
-}
-
-/* Loading text */
-.loading {
+.collection-table th, .collection-table td {
+  border: 1px solid #ddd;
+  padding: 10px 14px;
   text-align: center;
-  font-size: 16px;
-  color: #555;
+}
+
+.collection-table th {
+  background: #2196f3;
+  color: white;
+}
+
+.collection-table tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+.collection-table tr:hover {
+  background: #e8f5e9;
 }
