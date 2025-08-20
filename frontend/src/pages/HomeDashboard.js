@@ -20,6 +20,7 @@ const HomeDashboard = () => {
     { path: "/Sales", label: "Sales" },
     { path: "/vendors", label: "Manage Vendors" },
     { path: "/signup", label: "Add User" },
+    { path: "/getCollections", label: "Collections" },
   ];
 
   const handleLogout = () => {
