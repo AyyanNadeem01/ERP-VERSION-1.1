@@ -18,6 +18,8 @@ import AddPaymentPage from "./pages/AddPaymentPage";
 import VendorLedger from "./pages/VendorLedger";
 import HomeDashboard from "./pages/HomeDashboard";
 import CompanyPage from "./pages/CompanyPage"
+import CollectionPage from "./pages/CollectionPage";
+
 function AppContent() {
   const location = useLocation();
   const hideNavbarOn = ["/login", "/signup"];
@@ -66,7 +68,15 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
-        <Route
+       <Route
+          path="/getCollections"
+          element={
+            <ProtectedRoute>
+              <CollectionPage />
+            </ProtectedRoute>
+          }
+        />
+          <Route
           path="/sales"
           element={
             <ProtectedRoute>
