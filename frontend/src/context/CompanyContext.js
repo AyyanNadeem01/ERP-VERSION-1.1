@@ -24,33 +24,6 @@
 //     fetchCompany();
 //   }, []);
 
-//   // Actions
-//   const createCompany = async (data) => {
-//     const newCompany = await companyService.createCompany(data);
-//     setCompany(newCompany);
-//   };
-
-//   const updateCompany = async (data) => {
-//     const updated = await companyService.updateCompany(data);
-//     setCompany(updated);
-//   };
-
-//   const deleteCompany = async () => {
-//     await companyService.deleteCompany();
-//     setCompany(null);
-//   };
-
-//   return (
-//     <CompanyContext.Provider
-//       value={{ company, loading, createCompany, updateCompany, deleteCompany }}
-//     >
-//       {children}
-//     </CompanyContext.Provider>
-//   );
-// };
-
-
-
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
@@ -78,3 +51,31 @@ export const CompanyProvider = ({ children }) => {
 
     fetchCompany();
   }, [token]); // ✅ re-run only when token changes
+
+// Actions
+  const createCompany = async (data) => {
+    const newCompany = await companyService.createCompany(data);
+    setCompany(newCompany);
+  };
+
+  const updateCompany = async (data) => {
+    const updated = await companyService.updateCompany(data);
+    setCompany(updated);
+  };
+
+  const deleteCompany = async () => {
+    await companyService.deleteCompany();
+    setCompany(null);
+  };
+
+  return (
+    <CompanyContext.Provider
+      value={{ company, loading, createCompany, updateCompany, deleteCompany }}
+    >
+      {children}
+    </CompanyContext.Provider>
+  );
+};
+
+
+
