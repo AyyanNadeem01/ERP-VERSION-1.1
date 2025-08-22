@@ -24,11 +24,16 @@
 //     fetchCompany();
 //   }, []);
 
-import { useContext } from "react";
+// src/context/CompanyContext.js
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import companyService from "../services/companyService";
+
+// ✅ Export the context
+export const CompanyContext = createContext();
 
 export const CompanyProvider = ({ children }) => {
-  const { token } = useContext(AuthContext);  // ✅ get token
+  const { token } = useContext(AuthContext);
   const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -50,9 +55,9 @@ export const CompanyProvider = ({ children }) => {
     };
 
     fetchCompany();
-  }, [token]); // ✅ re-run only when token changes
+  }, [token]);
 
-// Actions
+  // Actions
   const createCompany = async (data) => {
     const newCompany = await companyService.createCompany(data);
     setCompany(newCompany);
@@ -76,6 +81,3 @@ export const CompanyProvider = ({ children }) => {
     </CompanyContext.Provider>
   );
 };
-
-
-
