@@ -27,7 +27,7 @@ exports.signup = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id }, // payload
       JWT_SECRET,           // secret key
-      { expiresIn: "1h" }   // token expiry
+      { expiresIn: "30d" }   // token expiry
     );
 
     res.json({ message: "Signup successful", token });
