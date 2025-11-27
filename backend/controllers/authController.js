@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id }, // payload
       JWT_SECRET,           // secret key
-      { expiresIn: "1h" }
+      { expiresIn: "30d" }
     );
 
     res.json({ message: "Login successful", token });
